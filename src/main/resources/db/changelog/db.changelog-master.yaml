@@ -1,0 +1,86 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: kizina
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  startWith: 1
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 2
+      author: kizina
+      changes:
+        - createTable:
+            tableName: measurement
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  startWith: 1
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_measurement_user
+                    references: user(id)
+              - column:
+                  name: gas_value
+                  type: integer
+              - column:
+                  name: hot_water_value
+                  type: integer
+              - column:
+                  name: cold_water_value
+                  type: integer
+              - column:
+                  name: createdAt
+                  type: timestamp
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 3
+      author: kizina
+      changes:
+        - createIndex:
+            tableName: measurement
+            columns:
+              - column:
+                  name: user_id
+            indexName: idx_user_id
+
+  - changeSet:
+      id: insertTestUsers
+      author: kizina
+      changes:
+        - insert:
+            tableName: user
+            columns:
+              - column:
+                  name: name
+                  value: "User1"
+        - insert:
+            tableName: user
+            columns:
+              - column:
+                  name: name
+                  value: "User2"

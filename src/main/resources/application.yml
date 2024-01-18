@@ -1,0 +1,16 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:hsqldb:mem:monitoring;hsqldb.lock_file=false
+    username: user
+    password: password
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.HSQLDialect
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
